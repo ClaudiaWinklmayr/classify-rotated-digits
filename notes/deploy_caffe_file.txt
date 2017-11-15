@@ -1,0 +1,36 @@
+(1)  Remove the Data Layer(s) That Were Used For Training.
+  type: "Data"
+  phase TRAIN /TEST  
+  
+----------------------------------------------------------------------------  
+(2)  Remove any layer that is dependent upon data labels.
+
+e.g.: accuracy, loss, etc
+
+----------------------------------------------------------------------------
+(3) Set the Network Up To Accept Data.
+    
+For MNIST: 
+
+layer {
+    name: "data"
+    type: "Input"
+    top: "data"
+    input_param { shape: { dim: 1 dim: 1 dim: 28 dim: 28 } }
+}
+
+----------------------------------------------------------------------------
+(4) Have the network output the result.
+
+e.g.: 
+
+layer {
+  name: "loss"
+  type: "Softmax"
+  bottom: "score"
+  top: "loss"
+}
+
+----------------------------------------------------------------------------
+(5) save as delpoy.prototxt
+    call as:  net = caffe.Net('deploy.prototxt', 'weights.caffemodel', caffe.TEST)
